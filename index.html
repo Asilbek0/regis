@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body >
+    <div >
+    <img src="./1.jpg" alt="" style="width:300px;height:280px ;margin: auto;margin-left: 8%;margin-top: 1%;"  id="img12">
+    <img src="./2.jpg" alt="" style="width:300px;height:280px ;margin: auto;margin-top: 1%;" id="img12">
+    <img src="./3.jpg" alt="" style="width:300px;height:280px ;margin: auto;margin-top: 1%;" id="img12">
+    <img src="./4.jpg" alt="" style="width:300px;height:280px ;margin: auto;margin-top: 1%;" id="img12">
+</div>
+    <form action="" style="margin: auto;">
+        <div style="width:20%;height:500px;border:1px solid black;margin-left: 20%;margin-top: 5%; background-color: black; box-shadow: 1px 1px 1px 1px black;">
+        <input type="text" name="" id="img" placeholder="linnkni kiriting" style="margin-top: 30px;margin-left: 15%; width: 70%; height:10%; ">
+        <input type="name" name="" id="name"style="margin-top: 30px;margin-left: 15%; width: 70%; height:10%;  " placeholder="ism yoki name ni kiriting ">
+        <input type="text" name="" id="lastname"style="margin-top: 30px;margin-left: 15%; width: 70%; height:10%; " placeholder="Lastname ingizni kiriting">
+        <input type="Username" name="" id="username" style="margin-top: 30px;margin-left: 15%; width: 70%; height:10%; " placeholder="Username ingizni kiriting">
+        <input type="password" name="" id="pass" style="margin-top: 30px;margin-left: 15%; width: 70%; height:10%; " placeholder="parolingizni kiriting"> 
+        <input type="submit" name="" placeholder="natija chiqishu uchun bosing" id="btn" style="margin-top: 10px;margin-left:  15%; width: 70%; height:10%; background-color: wheat;">
+        <p id="errortext" style=" display:none; color:#ed5353;"></p>
+         </div>
+        <br><br>
+    </form>
+    <div id="body"></div>
+</body>
+<script>
+    let img = document.getElementsByTagName('img');
+    let i =0;
+    let len = img.length;
+    let unique;
+    while(len){
+        let oneImg = img[i];
+        oneImg.onclick = () => {
+            oneImg.style.border = "5px solid black";
+            document.addEventListener('keydown',(event)=>{
+                var name = event.key;
+                var code = event.code;
+                if(code == "Keyc" || code == "KeyC"){
+                    var src = oneImg.src;
+                    let inputImg = document.getElementById('img');
+                    document.getElementById('img').value = src;
+                }
+            },false);
+        }
+        ++i;
+        --len;
+    }
+    document.getElementById('btn').onclick = () =>  {
+        event.preventDefault();
+
+        let doc=document;
+        let name=doc.getElementById('name').value,
+            img=doc.getElementById('img').value,
+            lastname=doc.getElementById('lastname').value,
+            username=doc.getElementById('username').value,
+            pass=doc.getElementById('pass').value,
+            body=doc.getElementById('body'),
+            errorText=doc.getElementById('errorText');
+        if (!name.trim() || !lastname.trim() ||  !username.trim() ||  !pass.trim()  ) {
+            errorText = "Barcha maydonlarni to'ldiring!"
+            alert(errorText);
+            
+            return;
+        }   
+        const profile ={
+            'img' : img,
+            'name':name,
+            'lastname':lastname,
+            'username':username,
+            'pass':pass,
+            inn :function (){
+                body.innerHTML = `
+                
+                                 <img src="${this.img}" style="width:300px;height:280px ;margin: auto;margin-left: 55% ;margin-top:-90%;">
+                                    <div style="margin-top:-290px;  ">
+              <button style="height:30px;width:200px;margin-left:800px;margin-top:20px;"> name:${this.name},</button><br/>
+             <button style="height:30px;width:200px;margin-left:800px;margin-top:20px;">   lastname:${this.lastname},</button><br/>
+             <button style="height:30px;width:200px;margin-left:800px;margin-top:20px;">   Usernamengiz:${this.username},</button><br/>
+              <button style="height:30px;width:200px;margin-left:800px;margin-top:20px;">  Parolingiz:${this.pass},</button><br/>
+            </div>
+            
+              `;
+            }
+
+        }
+        profile.inn();
+        doc.getElementById('name').value = "";
+        doc.getElementById('lastname').value = "";
+        doc.getElementById('username').value = "";
+        doc.getElementById('pass').value = "";
+
+    }
+</script>
+</html>
